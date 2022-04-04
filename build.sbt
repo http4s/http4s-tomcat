@@ -23,7 +23,7 @@ val tomcatVersion = "9.0.36"
 lazy val root = project
   .in(file("."))
   .enablePlugins(NoPublishPlugin)
-  .aggregate(tomcatServer)
+  .aggregate(tomcatServer, examples)
 
 lazy val tomcatServer = project
   .in(file("tomcat-server"))
@@ -41,5 +41,16 @@ lazy val tomcatServer = project
       "org.typelevel" %% "munit-cats-effect-3" % munitCatsEffectVersion % Test,
     ),
   )
+
+lazy val examples = project
+  .in(file("examples"))
+  .enablePlugins(NoPublishPlugin)
+  .settings(
+    name := "http4s-tomcat-examples",
+    description := "Example of http4s server on Tomcat",
+    startYear := Some(2014),
+    fork := true,
+  )
+  .dependsOn(tomcatServer)
 
 lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin)
