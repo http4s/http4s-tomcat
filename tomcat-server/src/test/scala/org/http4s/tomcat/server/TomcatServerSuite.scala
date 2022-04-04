@@ -19,10 +19,11 @@ package tomcat
 package server
 
 import cats.effect.IO
+import cats.effect.Resource
+import munit.CatsEffectSuite
 import org.apache.catalina.webresources.TomcatURLStreamHandlerFactory
 import org.http4s.dsl.io._
 import org.http4s.server.Server
-import org.http4s.testing.AutoCloseableResource
 
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -32,7 +33,7 @@ import java.util.logging.LogManager
 import scala.concurrent.duration._
 import scala.io.Source
 
-class TomcatServerSuite extends Http4sSuite {
+class TomcatServerSuite extends CatsEffectSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
     // Prevents us from loading jar and war URLs, but lets us
@@ -73,12 +74,11 @@ class TomcatServerSuite extends Http4sSuite {
   private val tomcatServer = ResourceFixture[Server](serverR)
 
   private def get(server: Server, path: String): IO[String] =
-    IO.blocking(
-      AutoCloseableResource.resource(
-        Source
-          .fromURL(new URL(s"http://127.0.0.1:${server.address.getPort}$path"))
-      )(_.getLines().mkString)
-    )
+    Resource
+      .make(
+        IO.blocking(Source.fromURL(new URL(s"http://127.0.0.1:${server.address.getPort}$path")))
+      )(source => IO(source.close()))
+      .use(source => IO(source.getLines().mkString))
 
   private def post(server: Server, path: String, body: String): IO[String] =
     IO.blocking {
@@ -89,24 +89,25 @@ class TomcatServerSuite extends Http4sSuite {
       conn.setRequestProperty("Content-Length", bytes.size.toString)
       conn.setDoOutput(true)
       conn.getOutputStream.write(bytes)
-
-      AutoCloseableResource.resource(
-        Source
-          .fromInputStream(conn.getInputStream, StandardCharsets.UTF_8.name)
-      )(_.getLines().mkString)
+      conn
+    }.flatMap { conn =>
+      Resource
+        .make(
+          IO.blocking(Source.fromInputStream(conn.getInputStream, StandardCharsets.UTF_8.name))
+        )(source => IO(source.close()))
+        .use(source => IO.blocking(source.getLines().mkString))
     }
 
-  tomcatServer.test("server should route requests on the service executor".flaky) { server =>
-    val prefix: String = "http4s-suite-"
+  tomcatServer.test("server should route requests on the service executor") { server =>
+    val prefix: String = "io-compute-"
     get(server, "/thread/routing")
       .map(_.take(prefix.size))
       .assertEquals(prefix)
   }
 
-  tomcatServer.test("server should execute the service task on the service executor".flaky) {
-    server =>
-      val prefix: String = "http4s-suite-"
-      get(server, "/thread/effect").map(_.take(prefix.size)).assertEquals(prefix)
+  tomcatServer.test("server should execute the service task on the service executor") { server =>
+    val prefix: String = "io-compute-"
+    get(server, "/thread/effect").map(_.take(prefix.size)).assertEquals(prefix)
   }
 
   tomcatServer.test("server should be able to echo its input") { server =>
