@@ -17,7 +17,7 @@ val asyncHttpClientVersion = "2.12.3"
 val http4sVersion = "0.23.11"
 val http4sServletVersion = "0.23.11"
 val munitCatsEffectVersion = "1.0.7"
-val servletApiVersion = "3.1.0"
+val servletApiVersion = "4.0.1"
 val tomcatVersion = "9.0.62"
 
 lazy val root = project
