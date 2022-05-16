@@ -1,4 +1,5 @@
 ThisBuild / tlBaseVersion := "0.23" // your current series x.y
+ThisBuild / tlMimaPreviousVersions ++= (0 to 11).map(y => s"0.23.$y").toSet
 
 ThisBuild / licenses := Seq(License.Apache2)
 ThisBuild / developers := List(
@@ -18,7 +19,7 @@ val http4sVersion = "0.23.11"
 val http4sServletVersion = "0.23.11"
 val munitCatsEffectVersion = "1.0.7"
 val servletApiVersion = "3.1.0"
-val tomcatVersion = "9.0.62"
+val tomcatVersion = "9.0.63"
 
 lazy val root = project
   .in(file("."))
