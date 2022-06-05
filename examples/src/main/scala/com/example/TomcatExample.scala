@@ -17,15 +17,15 @@
 package com.example
 
 import cats.effect._
+import org.http4s._
+import org.http4s.server.Server
+import org.http4s.servlet.DefaultFilter
+import org.http4s.tomcat.server.TomcatBuilder
 
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import org.http4s._
-import org.http4s.server.Server
-import org.http4s.servlet.DefaultFilter
-import org.http4s.tomcat.server.TomcatBuilder
 
 /** 1. Run as `sbt examples/run`
   * 2. Browse to http://localhost:8080/http4s to see `httpRoutes`
@@ -38,13 +38,13 @@ object TomcatExample extends IOApp {
 }
 
 class TomcatExample[F[_]](implicit F: Async[F]) {
-  def httpRoutes = HttpRoutes.of[F] {
+  def httpRoutes: HttpRoutes[F] = HttpRoutes.of[F] {
     case req if req.method == Method.GET =>
       Sync[F].pure(Response(Status.Ok).withEntity("/pong"))
   }
 
   // Also supports raw servlets alongside your http4s routes
-  val rawServlet = new HttpServlet {
+  val rawServlet: HttpServlet = new HttpServlet {
     override def doGet(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -53,7 +53,7 @@ class TomcatExample[F[_]](implicit F: Async[F]) {
   }
 
   // Also supports raw filters alongside your http4s routes
-  val filter = new DefaultFilter {
+  val filter: DefaultFilter = new DefaultFilter {
     override def doHttpFilter(
         request: HttpServletRequest,
         response: HttpServletResponse,
