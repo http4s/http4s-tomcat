@@ -1,5 +1,4 @@
-ThisBuild / tlBaseVersion := "0.23" // your current series x.y
-ThisBuild / tlMimaPreviousVersions ++= (0 to 11).map(y => s"0.23.$y").toSet
+ThisBuild / tlBaseVersion := "0.24" // your current series x.y
 
 ThisBuild / licenses := Seq(License.Apache2)
 ThisBuild / developers := List(
@@ -16,9 +15,9 @@ ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
 val http4sVersion = "0.23.12"
-val http4sServletVersion = "0.23.11"
+val http4sServletVersion = "0.24.0-M1"
 val munitCatsEffectVersion = "1.0.7"
-val servletApiVersion = "3.1.0"
+val servletApiVersion = "4.0.1"
 val tomcatVersion = "9.0.64"
 
 lazy val root = project
