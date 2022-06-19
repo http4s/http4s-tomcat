@@ -46,7 +46,7 @@ import java.net.InetSocketAddress
 import java.util
 import java.util.concurrent.Executor
 import javax.servlet.DispatcherType
-import javax.servlet.Filter
+import javax.servlet.http.HttpFilter
 import javax.servlet.http.HttpServlet
 import scala.collection.immutable
 import scala.concurrent.duration._
@@ -132,7 +132,7 @@ sealed class TomcatBuilder[F[_]] private (
     })
 
   override def mountFilter(
-      filter: Filter,
+      filter: HttpFilter,
       urlMapping: String,
       name: Option[String],
       dispatches: util.EnumSet[DispatcherType],

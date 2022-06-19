@@ -19,10 +19,10 @@ package com.example
 import cats.effect._
 import org.http4s._
 import org.http4s.server.Server
-import org.http4s.servlet.DefaultFilter
 import org.http4s.tomcat.server.TomcatBuilder
 
 import javax.servlet.FilterChain
+import javax.servlet.http.HttpFilter
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -53,8 +53,8 @@ class TomcatExample[F[_]](implicit F: Async[F]) {
   }
 
   // Also supports raw filters alongside your http4s routes
-  val filter: DefaultFilter = new DefaultFilter {
-    override def doHttpFilter(
+  val filter: HttpFilter = new HttpFilter {
+    override protected def doFilter(
         request: HttpServletRequest,
         response: HttpServletResponse,
         chain: FilterChain,
