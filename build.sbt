@@ -1,4 +1,4 @@
-ThisBuild / tlBaseVersion := "0.24" // your current series x.y
+ThisBuild / tlBaseVersion := "0.25" // your current series x.y
 
 ThisBuild / licenses := Seq(License.Apache2)
 ThisBuild / developers := List(
@@ -15,10 +15,10 @@ ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
 val http4sVersion = "0.23.12"
-val http4sServletVersion = "0.24.0-M1"
+val http4sServletVersion = "0.25.0-M1"
 val munitCatsEffectVersion = "1.0.7"
-val servletApiVersion = "4.0.1"
-val tomcatVersion = "9.0.64"
+val servletApiVersion = "5.0.0"
+val tomcatVersion = "10.0.22"
 
 lazy val root = project
   .in(file("."))
@@ -32,7 +32,7 @@ lazy val tomcatServer = project
     description := "Tomcat implementation for http4s servers",
     startYear := Some(2014),
     libraryDependencies ++= Seq(
-      "javax.servlet" % "javax.servlet-api" % servletApiVersion % Provided,
+      "jakarta.servlet" % "jakarta.servlet-api" % servletApiVersion % Provided,
       "org.apache.tomcat" % "tomcat-catalina" % tomcatVersion,
       "org.apache.tomcat" % "tomcat-coyote" % tomcatVersion,
       "org.apache.tomcat" % "tomcat-util-scan" % tomcatVersion,

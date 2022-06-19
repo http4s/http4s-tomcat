@@ -17,15 +17,14 @@
 package com.example
 
 import cats.effect._
+import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpFilter
+import jakarta.servlet.http.HttpServlet
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import org.http4s._
 import org.http4s.server.Server
 import org.http4s.tomcat.server.TomcatBuilder
-
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpFilter
-import javax.servlet.http.HttpServlet
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 /** 1. Run as `sbt examples/run`
   * 2. Browse to http://localhost:8080/http4s to see `httpRoutes`

@@ -20,6 +20,9 @@ package server
 
 import cats.effect._
 import cats.effect.std.Dispatcher
+import jakarta.servlet.DispatcherType
+import jakarta.servlet.http.HttpFilter
+import jakarta.servlet.http.HttpServlet
 import org.apache.catalina.Context
 import org.apache.catalina.connector.Connector
 import org.apache.catalina.startup.Tomcat
@@ -45,9 +48,6 @@ import org.log4s.getLogger
 import java.net.InetSocketAddress
 import java.util
 import java.util.concurrent.Executor
-import javax.servlet.DispatcherType
-import javax.servlet.http.HttpFilter
-import javax.servlet.http.HttpServlet
 import scala.collection.immutable
 import scala.concurrent.duration._
 
