@@ -14,7 +14,7 @@ ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.15", "3.1.2")
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
-val http4sVersion = "0.23.12"
+val http4sVersion = "0.23.16"
 val http4sServletVersion = "0.24.0-M1"
 val munitCatsEffectVersion = "1.0.7"
 val servletApiVersion = "4.0.1"
