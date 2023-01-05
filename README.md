@@ -2,6 +2,12 @@
 
 Provides an [Apache Tomcat][tomcat] backend for [http4s][http4s].
 
+## Unmaintained
+
+As of Janaury 4, 2023, this module is unmaintained.  If you are interested in reviving it, please [comment here](https://github.com/http4s/http4s-tomcat/issues/162).
+
+See [http4s-jetty](https://github.com/http4s/http4s-jetty) and [http4s-servlet](https://github.com/http4s/http4s-servlet) for related projects.
+
 ## SBT coordinates
 
 ```scala
