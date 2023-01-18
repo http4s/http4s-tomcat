@@ -38,9 +38,7 @@ import org.http4s.server.Server
 import org.http4s.server.ServerBuilder
 import org.http4s.server.ServiceErrorHandler
 import org.http4s.server.defaults
-import org.http4s.servlet.AsyncHttp4sServlet
-import org.http4s.servlet.ServletContainer
-import org.http4s.servlet.ServletIo
+import org.http4s.servlet.{AsyncHttp4sServlet, BlockingServletIo, NonBlockingServletIo, ServletContainer, ServletIo}
 import org.http4s.syntax.all._
 import org.http4s.tomcat.server.TomcatBuilder._
 import org.log4s.getLogger
@@ -159,15 +157,17 @@ sealed class TomcatBuilder[F[_]] private (
   def mountService(service: HttpRoutes[F], prefix: String): Self =
     mountHttpApp(service.orNotFound, prefix)
 
-  def mountHttpApp(service: HttpApp[F], prefix: String): Self =
+  def mountHttpApp(httpApp: HttpApp[F], prefix: String): Self =
     copy(mounts = mounts :+ Mount[F] { (ctx, index, builder, dispatcher) =>
-      val servlet = new AsyncHttp4sServlet(
-        service = service,
-        asyncTimeout = builder.asyncTimeout,
-        servletIo = builder.servletIo,
-        serviceErrorHandler = builder.serviceErrorHandler,
-        dispatcher = dispatcher,
-      )
+      val chunkSize = builder.servletIo match {
+          case BlockingServletIo(chunkSize) => chunkSize
+          case NonBlockingServletIo(chunkSize) => chunkSize
+      }
+      val servlet = AsyncHttp4sServlet
+          .builder(httpApp, dispatcher)
+          .withAsyncTimeout(builder.asyncTimeout)
+          .withChunkSize(chunkSize)
+          .build
       val wrapper = Tomcat.addServlet(ctx, s"servlet-$index", servlet)
       wrapper.addMapping(ServletContainer.prefixMapping(prefix))
       wrapper.setAsyncSupported(true)
