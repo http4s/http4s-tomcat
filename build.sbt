@@ -9,12 +9,12 @@ ThisBuild / developers := List(
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala213 = "2.13.8"
-ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.15", "3.1.2")
+val Scala213 = "2.13.10"
+ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.17", "3.2.0")
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
-val http4sVersion = "0.23.12"
+val http4sVersion = "0.23.18"
 val http4sServletVersion = "0.25.0-M1"
 val munitCatsEffectVersion = "1.0.7"
 val servletApiVersion = "5.0.0"
