@@ -16,7 +16,7 @@ ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
 val http4sVersion = "0.23.18"
-val http4sServletVersion = "0.23.11"
+val http4sServletVersion = "0.23.15"
 val munitCatsEffectVersion = "1.0.7"
 val servletApiVersion = "3.1.0"
 val tomcatVersion = "9.0.73"
