@@ -18,7 +18,7 @@ val http4sVersion = "0.23.18"
 val http4sServletVersion = "0.25.0-M1"
 val munitCatsEffectVersion = "1.0.7"
 val servletApiVersion = "5.0.0"
-val tomcatVersion = "10.0.27"
+val tomcatVersion = "10.1.17"
 
 lazy val root = project
   .in(file("."))
