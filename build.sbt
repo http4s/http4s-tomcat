@@ -11,7 +11,7 @@ ThisBuild / developers := List(
 ThisBuild / tlSitePublishBranch := Some("main")
 
 val Scala213 = "2.13.10"
-ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.17", "3.2.2")
+ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.19", "3.2.2")
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
