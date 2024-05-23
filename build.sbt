@@ -17,7 +17,7 @@ ThisBuild / scalaVersion := Scala213 // the default Scala
 val asyncHttpClientVersion = "2.12.3"
 val http4sVersion = "0.23.18"
 val http4sServletVersion = "0.23.11"
-val munitCatsEffectVersion = "1.0.7"
+val munitCatsEffectVersion = "2.0.0"
 val servletApiVersion = "3.1.0"
 val tomcatVersion = "9.0.73"
 
@@ -39,7 +39,7 @@ lazy val tomcatServer = project
       "org.apache.tomcat" % "tomcat-util-scan" % tomcatVersion,
       "org.http4s" %% "http4s-dsl" % http4sVersion % Test,
       "org.http4s" %% "http4s-servlet" % http4sServletVersion,
-      "org.typelevel" %% "munit-cats-effect-3" % munitCatsEffectVersion % Test,
+      "org.typelevel" %% "munit-cats-effect" % munitCatsEffectVersion % Test,
     ),
   )
 
