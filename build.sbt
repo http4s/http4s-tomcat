@@ -10,7 +10,7 @@ ThisBuild / developers := List(
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala213 = "2.13.10"
+val Scala213 = "2.13.15"
 ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.17", "3.2.2")
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
