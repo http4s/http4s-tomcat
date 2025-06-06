@@ -4,7 +4,7 @@ Provides an [Apache Tomcat][tomcat] backend for [http4s][http4s].
 
 ## Unmaintained
 
-As of January 4, 2023, this module is unmaintained.  If you would like to help revive it, please comment on [this issue](https://github.com/http4s/http4s-okhttp-client/issues/6) and someone will help you.
+As of January 4, 2023, this module is unmaintained.  If you would like to help revive it, please comment on [this issue](https://github.com/http4s/http4s-tomcat/issues/162) and someone will help you.
 
 See [http4s-jetty](https://github.com/http4s/http4s-jetty) and [http4s-servlet](https://github.com/http4s/http4s-servlet) for alternative servlet integrations.
 
