@@ -1,6 +1,7 @@
 ThisBuild / tlBaseVersion := "0.24" // your current series x.y
 
 ThisBuild / licenses := Seq(License.Apache2)
+ThisBuild / startYear := Some(2014)
 ThisBuild / developers := List(
   // your GitHub handle and name
   tlGitHubDev("rossabaker", "Ross A. Baker")
@@ -9,8 +10,8 @@ ThisBuild / developers := List(
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala213 = "2.13.10"
-ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.17", "3.2.0")
+val Scala213 = "2.13.16"
+ThisBuild / crossScalaVersions := Seq(Scala213, "2.12.20", "3.3.6")
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
 val asyncHttpClientVersion = "2.12.3"
@@ -18,7 +19,7 @@ val http4sVersion = "0.23.18"
 val http4sServletVersion = "0.24.0-M1"
 val munitCatsEffectVersion = "1.0.7"
 val servletApiVersion = "4.0.1"
-val tomcatVersion = "9.0.71"
+val tomcatVersion = "9.0.98"
 
 lazy val root = project
   .in(file("."))
@@ -30,7 +31,6 @@ lazy val tomcatServer = project
   .settings(
     name := "http4s-tomcat-server",
     description := "Tomcat implementation for http4s servers",
-    startYear := Some(2014),
     libraryDependencies ++= Seq(
       "javax.servlet" % "javax.servlet-api" % servletApiVersion % Provided,
       "org.apache.tomcat" % "tomcat-catalina" % tomcatVersion,
@@ -48,9 +48,10 @@ lazy val examples = project
   .settings(
     name := "http4s-tomcat-examples",
     description := "Example of http4s server on Tomcat",
-    startYear := Some(2014),
     fork := true,
   )
   .dependsOn(tomcatServer)
 
-lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin)
+lazy val docs = project
+  .in(file("site"))
+  .enablePlugins(Http4sOrgSitePlugin)
