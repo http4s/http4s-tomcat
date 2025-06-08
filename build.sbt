@@ -53,4 +53,6 @@ lazy val examples = project
   )
   .dependsOn(tomcatServer)
 
-lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin)
+lazy val docs = project
+  .in(file("site"))
+  .enablePlugins(Http4sOrgSitePlugin)
